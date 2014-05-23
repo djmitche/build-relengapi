@@ -23,6 +23,9 @@ setup(
     author='Dustin J. Mitchell',
     author_email='dustin@mozilla.com',
     url='https://api.pub.build.mozilla.org',
+    relengapi_metadata={
+        'repository_of_record': 'https://git.mozilla.org/?p=build/relengapi.git',
+    },
     install_requires=[
         "Flask",
         "Flask-Login>=0.2.10",
@@ -69,6 +72,12 @@ setup(
         ],
         "console_scripts": [
             'relengapi = relengapi.subcommands:main',
+        ],
+        "distutils.setup_keywords": [
+            "relengapi_metadata = relengapi.lib.setup:check_relengapi_metadata",
+        ],
+        "egg_info.writers": [
+            "relengapi.txt = relengapi.lib.setup:write_relengapi_metadata",
         ],
     },
     license='MPL2',

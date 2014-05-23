@@ -2,7 +2,7 @@ Development
 ===========
 
 .. toctree::
-    blueprints
+    project
     api_methods
     web-ui
     databases

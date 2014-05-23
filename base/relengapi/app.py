@@ -8,6 +8,7 @@ from flask import g
 from flask import render_template
 from flask.ext.principal import Principal
 from flask.ext.login import LoginManager
+from flask import json
 from relengapi import celery
 from relengapi import db
 from relengapi.lib import api
@@ -94,6 +95,9 @@ def create_app(cmdline=False, test_config=None):
                 'project_name': dist.project_name,
                 'version': dist.version,
             }
+            if dist.has_metadata('relengapi.txt'):
+                meta = json.loads(dist.get_metadata('relengapi.txt'))
+                dists[dist.key]['relengapi_metadata'] = meta
         blueprints = {}
         for ep in pkg_resources.iter_entry_points('relengapi_blueprints'):
             blueprints[ep.name] = {
