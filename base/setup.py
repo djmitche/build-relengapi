@@ -74,10 +74,10 @@ setup(
             'relengapi = relengapi.subcommands:main',
         ],
         "distutils.setup_keywords": [
-            "relengapi_metadata = relengapi.lib.setup:check_relengapi_metadata",
+            "relengapi_metadata = relengapi.lib.metadata:check_relengapi_metadata",
         ],
         "egg_info.writers": [
-            "relengapi.txt = relengapi.lib.setup:write_relengapi_metadata",
+            "relengapi.txt = relengapi.lib.metadata:write_relengapi_metadata",
         ],
     },
     license='MPL2',

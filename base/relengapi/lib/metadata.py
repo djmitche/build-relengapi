@@ -16,7 +16,7 @@ def check_relengapi_metadata(dist, attr, value):
         raise DistutilsSetupError('relengapi must include `repository_of_record`')
 
 
-def write_relengapi_metadata(cmd, basename, filename, force=False):
+def write_relengapi_metadata(cmd, basename, filename):
     value = getattr(cmd.distribution, 'relengapi_metadata', None)
     value = json.dumps(value) if value else ''
-    cmd.write_or_delete_file('relengapi_metadata', filename, value, force)
+    cmd.write_or_delete_file('relengapi_metadata', filename, value)

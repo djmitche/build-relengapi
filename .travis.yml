@@ -9,8 +9,14 @@ env:
   # document that.
   - RELENGAPI_SETTINGS=../../settings_example.py
 
-# command to install dependencies
-install: "pip install -e base[test]"
+# command to install dependencies.  Travis is pretty broken here.  The egg_info
+# must be created before the pip install, and once that's done, the pip install
+# fails to find Flask, so that must be installed manually as well.
+# See https://github.com/travis-ci/travis-ci/issues/2355
+install:
+  - pip install Flask
+  - "(cd base && python setup.py egg_info)"
+  - "pip install -e base[test]"
 
 # run everything in a single script, so we get a nice summary at the end
 script:
