@@ -132,7 +132,7 @@ class UTCDateTime(types.TypeDecorator):
 # {{
 
 
-def _unique(session, cls, hashfunc, queryfunc, constructor, arg, kw):
+def _unique(session, cls, hashfunc, queryfunc, constructor, arg, kw, _test_hook=None):
     cache = getattr(session, '_unique_cache', None)
     if cache is None:
         session._unique_cache = cache = {}
@@ -145,6 +145,8 @@ def _unique(session, cls, hashfunc, queryfunc, constructor, arg, kw):
             q = session.query(cls)
             q = queryfunc(q, *arg, **kw)
             obj = q.first()
+            if _test_hook:
+                _test_hook()
             if not obj:
                 obj = constructor(*arg, **kw)
                 session.add(obj)

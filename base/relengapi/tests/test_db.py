@@ -132,3 +132,22 @@ def test_unique_mixin(app):
     instances = session.query(Uniqueness_Table).all()
     eq_(3, len(instances))
     ok_(instances[2].name, 'r2')
+
+@TestContext(databases=['test_db'])
+def test_unique_race(app):
+    session = app.db.session('test_db')
+    unique_args = (session, Uniqueness_Table, Uniqueness_Table.unique_hash,
+                   Uniqueness_Table.unique_filter, Uniqueness_Table, (),
+                   {'name': 'r1'})
+    results = {}
+    # one call to _unique nested in the middle of another..
+    def inner():
+        results['inner'] = db._unique(*unique_args)
+    def outer():
+        return db._unique(*unique_args, _test_hook=inner)
+    results['outer'] = outer()
+    # this should probably happen at the end of the noautoflush context; otherwise
+    # the window for this race condition is even larger (until the next query performed
+    # on the session)
+    session.flush()
+    ok_(results['inner'].name == results['outer'].name, `results`)
