@@ -1,0 +1,39 @@
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+     License, v. 2.0. If a copy of the MPL was not distributed with this
+     file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+<root-widget-grid ng-app='root'
+      data-masonry-options='{"columnWidth": ".column-sizer", "itemSelector": ".root-widget", "gutter": ".gutter-sizer"}'>
+    <div class="column-sizer"></div>
+    <div class="gutter-sizer"></div>
+
+    <div ng-include="'/tokenauth/static/widget.html'"></div>
+
+    <root-widget title="Foo 2" columns="2" href="/bar">
+        Some wide content..
+        <div style="height: 2em;"></div>
+    </root-widget>
+    <root-widget title="Foo" href="/bar">
+        Some content..
+        <div style="height: 1em;"></div>
+    </root-widget>
+    <root-widget title="Foo 2" columns="1" href="/bar">
+        Some content..
+        <div style="height: 2em;"></div>
+    </root-widget>
+    <root-widget title="Foo" href="/bar">
+        Some content..
+        <div style="height: 3em;"></div>
+    </root-widget>
+    <root-widget title="Foo 2" columns="2" href="/bar">
+        Some wide content..
+        <div style="height: 0.4em;"></div>
+    </root-widget>
+    <root-widget title="Foo" href="/bar">
+        Some content..
+        <div style="height: 8em;"></div>
+    </root-widget>
+    <root-widget title="Foo 2" columns="1" href="/bar">
+        Some content..
+        <div style="height: 2em;"></div>
+    </root-widget>
+</root-widget-grid>

@@ -5,7 +5,7 @@
 import os
 from flask import Flask
 from flask import g
-from flask import render_template
+from flask import url_for
 from relengapi import celery
 from relengapi import db
 from relengapi.lib import api
@@ -13,6 +13,7 @@ from relengapi.lib import auth
 from relengapi.lib import layout
 from relengapi.lib import monkeypatches
 from relengapi.lib import permissions
+from relengapi.lib import angular
 import pkg_resources
 import relengapi
 import logging
@@ -112,7 +113,11 @@ def create_app(cmdline=False, test_config=None):
             bp_widgets.extend(bp.root_widget_templates or [])
         bp_widgets.sort()
         bp_widgets = [tpl for (_, tpl, condition) in bp_widgets if not condition or condition()]
-        return render_template('root.html', bp_widgets=bp_widgets)
+        return angular.template('root.html',
+                url_for('static', filename="root.js"),
+                url_for('static', filename="root.css"),
+                url_for('static', filename="js/masonry/masonry.pkgd.min.js"),
+                bp_widgets=bp_widgets)
 
     @app.route('/versions')
     @api.apimethod(VersionInfo)

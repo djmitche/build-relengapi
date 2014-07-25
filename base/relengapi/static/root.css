@@ -1,0 +1,55 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+/* root widgets */
+
+div.root-widget {
+    border: 3px solid #AAA;
+    background: white;
+    padding: 0px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border-radius: 10px;
+    font-size: 10pt;
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+div.root-widget h1 {
+    text-align: center;
+    font-size: 14pt;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    border-top-left-radius: 7.5px;
+    border-top-right-radius: 7.5px;
+    border-bottom: 1px solid #AAA;
+    background: #EFF;
+}
+
+div.root-widget h1 a {
+    text-decoration: none;
+    color: black;
+}
+
+div.root-widget > div {
+    padding: 5px;
+}
+
+/* Masonry styling */
+
+/* two columns by default */
+div.column-sizer { width: 49%; }
+div.gutter-sizer { width: 2%; }
+div.root-widget.w1 { width: 49%; }
+div.root-widget.w2 { width: 100%; }
+
+/* ..but three columns on large screens */
+@media screen and (min-width: 1000px) {
+    div.column-sizer { width: 32%; }
+    div.gutter-sizer { width: 1%; }
+    div.root-widget.w1 { width: 32%; }
+    div.root-widget.w2 { width: 65%; }
+}
