@@ -6,3 +6,5 @@ recursive-include relengapi *.html *.jpg *.css *.js *.txt *.map *.eot *.svg *.tt
 include LICENSE.txt
 include README.md
 prune docs_build_dir
+include versioneer.py
+include relengapi/_version.py

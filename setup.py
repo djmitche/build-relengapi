@@ -7,6 +7,13 @@ import os
 from setuptools import find_packages
 from setuptools import setup
 
+import versioneer
+versioneer.VCS = 'git'
+versioneer.versionfile_source = 'relengapi/_version.py'
+versioneer.versionfile_build = 'relengapi/_version.py'
+versioneer.tag_prefix = 'relengapi-'
+versioneer.parentdir_prefix = 'myproject-'
+
 data_patterns = [
     'templates/**.html',
     'static/**.jpg',
@@ -22,7 +29,8 @@ data_patterns = [
 
 setup(
     name='relengapi',
-    version='2.0.3',
+    version=versioneer.get_version(),
+    cmdclass=versioneer.get_cmdclass(),
     description='The code behind https://api.pub.build.mozilla.org',
     author='Dustin J. Mitchell',
     author_email='dustin@mozilla.com',

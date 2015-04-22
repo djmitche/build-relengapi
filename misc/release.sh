@@ -37,17 +37,10 @@ newversion="${1}"
 
 status "getting information from setup.py"
 
-# monkey-patch setuptools.setup to just print a few args in shell format
-setup_info=`python <<'EOF'
-import setuptools
-from pipes import quote  # replace with shlex.quote in python3
-def setup(name, version, **kwargs):
-    print "name={}".format(quote(name))
-    print "oldversion='{}'".format(quote(version))
-setuptools.setup = setup
-import setup
-EOF`
-eval $setup_info
+# get the last tag and break it down
+last_tag=$(git describe --tags `git rev-list --tags --max-count=1`)
+name=$(echo $last_tag | sed -e s/-[^-]*//)
+oldversion=$(echo $last_tag | sed -e s/.*-//)
 
 message "$name-$oldversion -> $name-$newversion"
 
@@ -86,12 +79,6 @@ if ! relengapi build-docs --development; then
     message "If the error was in the new release notes, re-run this script to try again"
     fail "building docs failed"
 fi
-
-status "updating version in setup.py"
-
-sed -i "s/version=['\"][^']*['\"],/version='$newversion',/" setup.py
-git diff --quiet setup.py && fail "no change to setup.py?"
-git add setup.py
 
 status "committing and tagging"
 
