@@ -50,6 +50,7 @@ class BadpennyTask(db.declarative_base('relengapi'), db.UniqueMixin):
 
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.Text, nullable=False)
+    summary = sa.Column(sa.Text)
 
     # all other data about a task is determined from runtime information (that
     # is, from the decorated function itself)
